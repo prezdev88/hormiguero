@@ -1,52 +1,90 @@
-# Hormiguero
+# Hormiguero 🐜
 
-Ejecutar con Python 3 y Tkinter:
+Un pequeño simulador de colonias para jugar en tu computador. Cría hormigas,
+recoge alimento, construye nuevos nidos y defiende tu territorio de arañas,
+mantis y avispones. Puedes jugar sin conexión y sin anuncios.
 
-```sh
+Hormiguero es una reinterpretación de **La vida de las hormigas**: sus reglas,
+combates y progresión son aproximaciones, no una reproducción exacta.
+
+## Comenzar
+
+Necesitas **Python 3** con **Tkinter**. Para usar las imágenes animadas necesitas
+también [Pillow](https://python-pillow.org/); sin él, el juego utiliza gráficos
+simples. En Linux, los efectos usan `paplay` y la música usa `ffplay`, si están
+disponibles.
+
+```bash
+git clone git@github.com:prezdev88/hormiguero.git
+cd hormiguero
+python3 -m pip install Pillow
 python3 juego.py
 ```
 
-Crea obreras para recolectar alimento, soldados que patrullan y persiguen arañas y
-universales para ambas tareas. Construye colonias adicionales con el botón y
-un clic en el terreno. El progreso se guarda al cerrar y cada 30 segundos en
-`~/.local/share/vida-hormigas-local/partida.json` (o bajo `XDG_DATA_HOME`).
-Al construir una colonia se muestra una vista previa junto al cursor; pulsa
-Escape para cancelar.
-Mantén Shift al hacer clic en un botón de hormigas para crear diez de ese tipo;
-necesitas alimento suficiente para el grupo completo.
-Las hormigas se crean en el nido propio seleccionado, o en el primero si no
-hay ningún nido propio seleccionado.
-Para que las hormigas puedan agruparse otra vez, cambia `ANTS_SPREAD_OUT = True`
-por `ANTS_SPREAD_OUT = False` al principio de `juego.py` y reinicia el juego.
-El botón «Atacar nido» envía soldados y universales hacia el nido rival.
-Usa «Crear nido enemigo» para colocar nidos gratis. Selecciona uno para crear
-arañas, mantis o avispones gratis; Shift+clic crea diez.
-Tras vencer, aparece otro nido rival más resistente y se recibe alimento.
-El minimapa muestra nidos, hormigas, alimento y enemigos. Las hormigas avanzan
-horizontal y verticalmente.
-Arrastra el terreno o usa las flechas para mover la cámara. Haz clic en el
-minimapa para ir a una zona; el rectángulo claro indica la vista actual. El mapa
-es más grande que la pantalla, pero tiene límites.
-También puedes mantener pulsado y arrastrar dentro del minimapa para navegar.
-Usa la rueda del ratón sobre el terreno para acercar o alejar la vista.
-Las barras verdes muestran la vida de las hormigas; las rojas, la vida de los
-enemigos; y las amarillas, el alimento restante en cada fuente.
-Haz clic en una entidad para consultar su información, actualizada en tiempo real.
-Las barras de vida están ocultas por defecto. Cambia `SHOW_HEALTH_BARS = False`
-a `True` al principio de `juego.py` para mostrarlas y reinicia el juego.
-Las barras de alimento también están ocultas; usa `SHOW_FOOD_BARS = True`
-para volver a mostrarlas.
-Las teclas 1, 2 y 3 ajustan la velocidad de la simulación a 1x, 2x y 3x.
-Los botones permiten guardar y cargar archivos, reembolsar una hormiga,
-destruir una colonia seleccionada, activar efectos y activar música. Para el
-audio se usan `paplay` y `ffplay`, si están disponibles. Los gráficos animados
-de las hormigas usan Pillow si está instalado; sin él se dibujan figuras simples.
-Las preferencias de sonido y música se guardan en `ajustes.json`, junto a la
-partida automática, y se conservan al iniciar una nueva partida.
-El alimento aparece cerca de las colonias; se generan más fuentes al aumentar
-el número de obreras y hormigas universales.
+Si `pip` no te permite instalar paquetes en el Python del sistema, crea primero
+un entorno virtual con `python3 -m venv .venv` y actívalo con
+`source .venv/bin/activate`. Si falta Tkinter, instálalo con el gestor de
+paquetes de tu distribución.
 
-Es una reinterpretación independiente a partir de textos del APK. La simulación,
-los costes y el combate son aproximaciones. La progresión de
-nidos es una interpretación y no reproduce el modo de batalla por niveles del
-original. Las imágenes de hormigas y los sonidos incluidos proceden del APK.
+## Cómo jugar
+
+1. Crea **obreras** desde el menú lateral. Saldrán a recolectar insectos y
+   llevarán el alimento al nido.
+2. Usa ese alimento para aumentar la colonia. Los **soldados** combaten y
+   patrullan; las hormigas **universales** pueden recolectar y combatir.
+3. Construye colonias adicionales para acercarte a nuevas zonas. Selecciona un
+   nido propio antes de crear hormigas para que salgan de él; si no seleccionas
+   ninguno, saldrán del primero.
+4. Pulsa **Atacar nido** para enviar soldados y universales contra las colonias
+   rivales. Al derrotar el nido principal aparece otro más resistente y recibes
+   una recompensa de alimento.
+
+También puedes colocar nidos enemigos gratis. Al seleccionar uno aparecen
+controles para crear arañas, mantis y avispones; los nidos generan enemigos
+automáticamente. Selecciona una hormiga para reembolsarla o una colonia propia
+para destruirla desde el menú superior.
+
+## Controles
+
+| Acción | Control |
+| --- | --- |
+| Mover el mapa | Arrastrar el terreno o usar las flechas |
+| Acercar o alejar | Rueda del mouse sobre el terreno |
+| Navegar por el mapa | Clic o arrastre en el minimapa |
+| Ver información | Clic en una hormiga, insecto o nido |
+| Crear diez unidades | Shift + clic en un botón de creación |
+| Cambiar velocidad | `1`, `2` o `3` |
+| Cancelar construcción | `Escape` |
+
+Para crear diez hormigas necesitas alimento suficiente para todo el grupo. El
+mapa es más grande que la ventana, pero tiene límites.
+
+## Partidas y ajustes
+
+La partida se guarda automáticamente cada 30 segundos y al cerrar la ventana.
+También puedes usar **Guardar como** y **Cargar** para administrar archivos de
+partida manualmente. Las preferencias de música y efectos se recuerdan entre
+sesiones.
+
+Por defecto, los archivos están en `~/.local/share/vida-hormigas-local/`:
+
+- `partida.json`: partida automática.
+- `ajustes.json`: preferencias de audio.
+
+Si tienes definida la variable `XDG_DATA_HOME`, se usa su carpeta
+`vida-hormigas-local` en lugar de `~/.local/share/vida-hormigas-local`.
+
+Al principio de `juego.py` hay tres opciones que puedes cambiar a `True` o
+`False`. Reinicia el juego después de modificarlas:
+
+```python
+ANTS_SPREAD_OUT = True    # Las hormigas intentan mantener distancia.
+SHOW_HEALTH_BARS = False  # Barras de vida sobre las entidades.
+SHOW_FOOD_BARS = False    # Barras y cantidades sobre el alimento.
+```
+
+## Sobre los recursos
+
+Las imágenes y los sonidos incluidos proceden del APK de *La vida de las
+hormigas*. La simulación en Python es una reinterpretación independiente y no
+incluye anuncios ni servicios en línea.
